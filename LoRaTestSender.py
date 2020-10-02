@@ -2,7 +2,7 @@ import subprocess
 import time
 
 texteDuPaquet = "NotreProjet"
-nombreDePaquets = 10 #la fonction de checksum ne fonctionne que jusque 9, pour l'instant
+nombreDePaquets = 30 #la fonction de checksum ne fonctionne que jusque 9, pour l'instant
 
 def carry_around_add(a, b):
     c = a + b
@@ -17,8 +17,16 @@ def checksum(msg):
 
 if __name__ == "__main__":
     for id in range(nombreDePaquets):
-        paquet = texteDuPaquet + str(id)
+        if id < 10:
+            paquet = texteDuPaquet + str(id)
+        else:
+            paquet = texteDuPaquet +"0"+ str(id)
         paquet += str(checksum(paquet))
-        print(paquet)
         time.sleep(.5)
-        #subprocess.call(["command1","sender", paquet])
+        subprocess.call(["../dragino_lora_app","sender", paquet, "7"])
+        print("done")
+
+
+        print("done")
+
+
