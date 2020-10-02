@@ -37,7 +37,7 @@ def analysePaquetsReceiveds(input):
 
 
 
-received = analysePaquetsReceiveds(inputPaquets)
-print(f'{received}/{nombreDePaquets} PAQUETS RECEIVEDS')
 #result = subprocess.run(['notreCommand', 'arg'], stdout=subprocess.PIPE)
 #result.stdout.decode('utf-8')
+received = analysePaquetsReceiveds(inputPaquets)
+print(f'{received}/{nombreDePaquets} PAQUETS RECEIVEDS')
