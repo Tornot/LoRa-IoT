@@ -1,4 +1,5 @@
 import subprocess
+import time
 
 texteDuPaquet = "NotreProjet"
 nombreDePaquets = 10 #la fonction de checksum ne fonctionne que jusque 9, pour l'instant
@@ -19,4 +20,5 @@ if __name__ == "__main__":
         paquet = texteDuPaquet + str(id)
         paquet += str(checksum(paquet))
         print(paquet)
-        #subprocess.call(["command1", "paquet"])
+        time.sleep(.5)
+        #subprocess.call(["command1","sender", paquet])
