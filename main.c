@@ -156,6 +156,8 @@ byte receivedbytes;
 
 enum sf_t { SF7=7, SF8, SF9, SF10, SF11, SF12 };
 
+FILE* myFile;
+
 /*******************************************************************************
  *
  * Configure these values!
@@ -333,6 +335,7 @@ void receivepacket() {
 
     long int SNR;
     int rssicorr;
+    std::string myString;
 
     if(digitalRead(dio0) == 1)
     {
@@ -362,6 +365,36 @@ void receivepacket() {
             printf("Length: %i", (int)receivedbytes);
             printf("\n");
             printf("Payload: %s\n", message);
+            
+            myFile = fopen("donnees.csv", "a");
+            myString = std::to_string(readReg(0x1A)-rssicorr);//Packet RSSI
+            myString += ",";
+            fprintf(myFile, myString.c_str());
+            
+            myString = std::to_string(readReg(0x1B)-rssicorr);//RSSI
+            myString += ",";
+            fprintf(myFile, myString.c_str());
+            
+            myString = std::to_string(SNR);//SNR
+            myString += ",";
+            fprintf(myFile, myString.c_str());
+            
+            myString = message;//Payload
+                        myString += "\n";
+            fprintf(myFile, myString.c_str());
+            
+            
+            
+            
+            
+            
+            
+            
+            fclose(myFile);
+            //fprintf(myFile, "%d, ",readReg(0x1B)-rssicorr);
+
+
+
 
         } // received a message
 
