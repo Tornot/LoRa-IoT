@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/style.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../static/main.js"></script>
+    <script type="text/javascript"
+            src="{{ url_for('static', filename='main.js') }}"></script>
+    <script>
+        console.log("hee")
+    </script>
+    <title>Document</title>
+</head>
+
+<body>
+<header class="header">
+    <div>
+        <h1>QUELLE TEMPERATURE FAIT IL?</h1>
+    </div>
+    <div id="temperature">
+        <h2>TEMPERATURE</h2>
+        <p>25°C</p>
+    </div>
+    <div id="luminosite">
+        <h2>LUMINOSITÉ</h2>
+    </div>
+    <div id="myDiv"></div>
+</header>
+
+</body>
+
+</html>
