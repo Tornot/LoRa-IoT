@@ -5,6 +5,7 @@
 */
 
 #include <MKRWAN.h>
+#include <math.h>
 
 LoRaModem modem;
 
@@ -22,6 +23,16 @@ void setup()
     Serial.begin(115200);
     while (!Serial);
     // change this to your regional band (eg. US915, AS923, ...)
+
+
+    while(1)
+    {
+        GetTemperature();
+        delay(500);
+    }
+
+
+
     if (!modem.begin(EU868)) 
     {
       Serial.println("Failed to start module");
@@ -45,9 +56,13 @@ void setup()
     // not allow to send more than one message every 2 minutes,
     // this is enforced by firmware and can not be changed.
 
+    //ConfigPins cateur temp // ADC 10 bits sans config particulière
+    pinMode(A0, INPUT); 
 
-    //ConfigPins
-    pinMode(A0, INPUT);
+
+    //Correction of ADC 
+    //analogReadCorrection(260, 2188);
+
 
 }
 
@@ -90,11 +105,17 @@ void loop() {
 double GetTemperature(void)
 {
     double temperature;
-    
-    temperature = (double) analogRead(A0);
+    double voltagemV;
+    voltagemV = (double) analogRead(A0);
     Serial.print("Value of ADC : ");
-    Serial.print(temperature);
-    temperature = (temperature / 1024.0) * 2.048;////Convert ADC Value to V. 10bits is 1024 values
-    temperature = (temperature - 1.8641) / (-0.01171);//?11.71 mV/°C × T + 1.8641 V = Value in V => T = (Value - 1.8641V)/(-11.71)
-    return temperature;
+    Serial.println(voltagemV);
+    voltagemV *= 3300/1024.0;
+    Serial.print("Value in mV : ");
+    Serial.println(voltagemV);
+    //Using Equation 1 solved for T at page 10 of LMT84 datasheet
+    temperature = ((5.506 - sqrt((-5.506*-5.506)+ (4 * 0.00176 * (870.6-voltagemV)))) / (2 * (-0.00176))) + 30;
+    
+    Serial.print("Temperature in °C: ");
+    Serial.println(temperature);
+   return temperature;
 }

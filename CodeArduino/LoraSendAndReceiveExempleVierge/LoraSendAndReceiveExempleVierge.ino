@@ -29,7 +29,7 @@ void setup() {
   Serial.println(modem.version());
   Serial.print("Your device EUI is: ");
   Serial.println(modem.deviceEUI());
-  delay(5000);
+  
   int connected = modem.joinOTAA(appEui, appKey);
   if (!connected) {
     Serial.println("Something went wrong; are you indoor? Move near a window and retry");
