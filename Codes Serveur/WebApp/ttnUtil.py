@@ -16,6 +16,8 @@ class Mqtt:
         self.mqtt_client.set_connect_callback(connect_callback)
         self.mqtt_client.set_downlink_callback(downlink_callback)
 
+        print(self.app_client.get())
+
     def listen(self):
         self.mqtt_client.connect()
         while(True):

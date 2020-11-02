@@ -30,14 +30,26 @@ def float_to_bin(value):  # For testing.
     [d] = struct.unpack(">Q", struct.pack(">d", value))
     return '{:064b}'.format(d)
 
+
+def get_binary(string):
+    out_string = ""
+    received_bytes = string[:-1].split('/')
+    for incomplete_binary in received_bytes:
+        number_of_zeros_to_add = 8 - len(incomplete_binary)
+        complete_binary = ''.join('0' for i in range(number_of_zeros_to_add)) + incomplete_binary
+        out_string += complete_binary
+
+    return out_string
+
+
 def message_received_callback(msg, client):
     print(msg)
-    string = msg.payload_raw
-    binary = ''.join(format(ord(i), 'b') for i in string)
-    # binary = binascii.a2b_uu(string)
+    string = msg.payload_fields[0]
+    binary = get_binary(string)
     print(binary)
-    my_float = bin_to_float(binary)
-    print(my_float)
+
+    # my_float = bin_to_float(binary)
+    # print(my_float)
     # message_type = MessageType.Temperature
     # if message_type == MessageType.Temperature:
     #     _temperature = 215
