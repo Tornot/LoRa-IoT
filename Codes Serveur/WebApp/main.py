@@ -2,7 +2,6 @@ import dbUtil
 from ttnUtil import MessageType, Mqtt
 import binascii
 import time
-#import mysql.connector
 from ast import literal_eval
 
 # float_str = "-0b101010101"
