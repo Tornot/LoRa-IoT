@@ -29,24 +29,24 @@ uint16_t GetLuminosity(void);
 void setup() 
 {
     // put your setup code here, to run once:
-    //Serial.begin(115200);
-    //while (!Serial);
+    Serial.begin(115200);
+    while (!Serial);
     // change this to your regional band (eg. US915, AS923, ...)
 
     if (!modem.begin(EU868)) 
     {
-      //Serial.println("Failed to start module");
+      Serial.println("Failed to start module");
       while (1) {}
     };
-    //Serial.print("Your module version is: ");
-    //Serial.println(modem.version());
-    //Serial.print("Your device EUI is: ");
-    //Serial.println(modem.deviceEUI());
+    Serial.print("Your module version is: ");
+    Serial.println(modem.version());
+    Serial.print("Your device EUI is: ");
+    Serial.println(modem.deviceEUI());
     delay(5000);
     int connected = modem.joinOTAA(appEui, appKey);
     if (!connected) 
     {
-      //Serial.println("Something went wrong; are you indoor? Move near a window and retry");
+      Serial.println("Something went wrong; are you indoor? Move near a window and retry");
       while (1) {}
     }
 
@@ -79,18 +79,18 @@ void loop() {
     msg[0] = adcData >> 16;
     msg[1] = adcData >> 8;
     msg[2] = adcData;
-    //Serial.print("adcData (32bits) = ");
-    //Serial.println(adcData);
+    Serial.print("adcData (32bits) = ");
+    Serial.println(adcData);
 
-    //Serial.println();
-    //Serial.print("Sending: ");
+    Serial.println();
+    Serial.print("Sending: ");
     for (uint8_t i =0; i<3 ; i++)
     {
-        //Serial.print(msg[i]);
+        Serial.print(msg[i]);
     }
 
-    //Serial.print(" - ");
-    //Serial.println();
+    Serial.print(" - ");
+    Serial.println();
 
 
 
@@ -99,18 +99,18 @@ void loop() {
     modem.write(msg,3);
     err = modem.endPacket(true);
     if (err > 0) {
-      //Serial.println("Message sent correctly!");
+      Serial.println("Message sent correctly!");
     } else 
     {
-      //Serial.println("Error sending message :(");
-      //Serial.println("(you may send a limited amount of messages per minute, depending on the signal strength");
-      //Serial.println("it may vary from 1 message every couple of seconds to 1 message every minute)");
+      Serial.println("Error sending message :(");
+      Serial.println("(you may send a limited amount of messages per minute, depending on the signal strength");
+      Serial.println("it may vary from 1 message every couple of seconds to 1 message every minute)");
     }
     delay(1000);
     if (!modem.available()) 
     {
-      //Serial.println("No downlink message received at this time.");
-      //Serial.println("We wait 1 min before sending another message");
+      Serial.println("No downlink message received at this time.");
+      Serial.println("We wait 1 min before sending another message");
       delay(60000);
     }
     delay(30000);
@@ -122,8 +122,8 @@ uint16_t GetTemperature(void)
 {
     uint16_t adcData;
     adcData = analogRead(A0);
-    //Serial.print("Value of ADC for temp: ");
-    //Serial.println(adcData);
+    Serial.print("Value of ADC for temp: ");
+    Serial.println(adcData);
    return adcData;
 }
 
@@ -131,8 +131,8 @@ uint16_t GetLuminosity()//R=3.28 kOhms
 {
     uint16_t adcData;
     adcData = analogRead(A1);
-    //Serial.print("Value of ADC for luminosity: ");
-    //Serial.println(adcData);
+    Serial.print("Value of ADC for luminosity: ");
+    Serial.println(adcData);
     return adcData;
 }
 
