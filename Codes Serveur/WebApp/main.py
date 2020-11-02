@@ -16,11 +16,26 @@ def get_binary(string):
     return out_string
 
 
+def binary_to_decimal(_binary):
+    binary1 = _binary
+    decimal, i, n = 0, 0, 0
+    while _binary != 0:
+        dec = _binary % 10
+        decimal = decimal + dec * pow(2, i)
+        _binary = _binary // 10
+        i += 1
+    return decimal
+
+
+def extract_data_from_binary(binary):
+    pass
+
+
 def message_received_callback(msg, client):
-    print(msg)
     string = msg.payload_fields[0]
     binary = get_binary(string)
-    print(binary)
+    data = extract_data_from_binary(binary)
+
 
 
 database = dbUtil.Database()
