@@ -16,19 +16,17 @@ def get_binary(string):
     return out_string
 
 
-def binary_to_decimal(_binary):
-    binary1 = _binary
-    decimal, i, n = 0, 0, 0
-    while _binary != 0:
-        dec = _binary % 10
-        decimal = decimal + dec * pow(2, i)
-        _binary = _binary // 10
-        i += 1
-    return decimal
-
-
 def extract_data_from_binary(binary):
-    pass
+    result = []
+    result[0] = int(binary[0:8], 2)
+    result[1] = int(binary[8:16], 2)
+    result[2] = int(binary[16:24], 2)
+    result[0] = result[0] << 6
+    result[0] += result[1] >> 2
+    result[1] = result[1] << 8
+    result[1] &= 0b1111111111
+    result[1] += result[2]
+    return result
 
 
 def message_received_callback(msg, client):
